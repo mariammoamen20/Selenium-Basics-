@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
+import java.util.Objects;
+
 public class Basics {
     WebDriver driver;
     @Test
@@ -32,6 +34,16 @@ public class Basics {
 
         //The same exactly as get("")
         driver.navigate().to("https://www.youtube.com/watch?v=qJQnFeXiKxI&list=PLJ2FoWouEU2w8wnsblKVolmhujkOWgkjo&index=19");
+
+        //Navigate back
+        driver.navigate().back();
+
+        //Navigate forward
+        driver.navigate().forward();
+
+        //Refresh page
+        driver.navigate().refresh();
+
     }
 
 }
