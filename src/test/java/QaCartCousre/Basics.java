@@ -19,7 +19,8 @@ public class Basics {
 
         driver.manage().window().maximize();
 
-         String className = driver.findElement(By.className("list1")).getText();
+        //Get element by class name
+        String className = driver.findElement(By.className("list1")).getText();
         System.out.println(className);
 
         //When i use tag name it will get the first tag because there will be a lot of element with same tag name
