@@ -19,7 +19,7 @@ public class Basics {
 
         driver.manage().window().maximize();
 
-        //Get element by class name
+        //Get element by class name 
         String className = driver.findElement(By.className("list1")).getText();
         System.out.println(className);
 
