@@ -97,6 +97,7 @@ public class HomePageTestCases {
         }
 
     }
+    //
     @Test
     public void scrollingLeft() {
         try {
