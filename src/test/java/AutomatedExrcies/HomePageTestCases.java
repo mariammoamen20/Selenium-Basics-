@@ -85,6 +85,32 @@ public class HomePageTestCases {
         }
     }
 
+    @Test
+    public void scrollingRight() {
+        try {
+            WebElement rightButton = driver.findElement(By.xpath("//*[@class='right recommended-item-control']"));
+            for (int i = 0; i < 5; i++) {
+                rightButton.click();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    @Test
+    public void scrollingLeft() {
+        try {
+            WebElement rightLeft = driver.findElement(By.xpath("//*[@class='left recommended-item-control']"));
+            for (int i = 0; i < 5; i++) {
+                rightLeft.click();
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @AfterMethod
     public void quite() {
         driver.quit();
