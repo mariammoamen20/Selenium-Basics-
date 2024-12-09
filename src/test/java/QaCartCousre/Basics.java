@@ -59,6 +59,10 @@ public class Basics {
         //Refresh page
         driver.navigate().refresh();
 
+        //testate id attribute
+        driver.findElement(By.xpath("//*[data-testid ='about-page']")).getText();
+
+
     }
 
 }
