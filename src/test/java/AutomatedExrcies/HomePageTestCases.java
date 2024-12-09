@@ -114,6 +114,7 @@ public class HomePageTestCases {
 
     @Test
     public void check_empty_email(){
+        //
         driver.findElement(By.id("subscribe")).click();
     }
     @AfterMethod
