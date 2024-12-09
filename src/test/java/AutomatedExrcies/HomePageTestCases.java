@@ -21,7 +21,7 @@ public class HomePageTestCases {
     public void setUp() {
         driver = new ChromeDriver();
         driver.get("https://automationexercise.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // Adjust implicit wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20)); // Adjust implicit wait
         driver.manage().deleteAllCookies();
         driver.navigate().refresh();
     }
@@ -112,6 +112,10 @@ public class HomePageTestCases {
 
     }
 
+    @Test
+    public void check_empty_email(){
+        driver.findElement(By.id("subscribe")).click();
+    }
     @AfterMethod
     public void quite() {
         driver.quit();
