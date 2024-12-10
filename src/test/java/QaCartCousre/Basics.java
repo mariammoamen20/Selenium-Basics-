@@ -3,7 +3,10 @@ package QaCartCousre;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Objects;
@@ -11,12 +14,16 @@ import java.util.Objects;
 public class Basics {
     WebDriver driver;
 
-    @Test
-    public void basics() {
+    @BeforeMethod
+    public void setUp() {
         driver = new ChromeDriver();
         //Open Html using selenium in chrome => locate the file in project and use "file://absolute path"
         driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
 
+    }
+
+    @Test
+    public void basics() {
         driver.manage().window().maximize();
 
         //Get element by class name
@@ -60,9 +67,62 @@ public class Basics {
         driver.navigate().refresh();
 
         //testate id attribute
-        driver.findElement(By.xpath("//*[data-testid ='about-page']")).getText();
+        //  driver.findElement(By.xpath("//*[data-testid ='about-page']")).getText();
+
+        //Css Selector (#ID)
 
 
     }
 
+    //Css Selector by id (#ID)
+    @Test
+    public void cssSelectorById() throws InterruptedException {
+        String cssSelector = driver.findElement(By.cssSelector("#welcome")).getText();
+        System.out.println("Css Selector " + cssSelector);
+    }
+
+    //Css Selector by class (.class)
+    @Test
+    public void cssSelectorByClass() throws InterruptedException {
+        String cssSelector = driver.findElement(By.cssSelector(".list1")).getText();
+        System.out.println("Css Selector " + cssSelector);
+    }
+
+    //Css Selector by path ("attribute = value")
+    @Test
+    public void cssSelectorByPath() throws InterruptedException {
+        String cssSelector = driver.findElement(By.cssSelector("[name=\"description\"]")).getText();
+        //String cssSelector = driver.findElement(By.cssSelector("[name="description"]")).getText();
+        System.out.println("Css Selector " + cssSelector);
+    }
+
+    //Css selector using parent and child
+    @Test
+    public void cssSelectorByChildAndParent() {
+        String cssSelector = driver.findElement(By.cssSelector(".course-list .list1")).getText();
+        System.out.println("Css Selector " + cssSelector);
+    }
+
+    //We can use symbol (>) if we deal with direct class and children
+    @Test
+    public void cssSelectorByDirectParent() {
+        String cssSelector = driver.findElement(By.cssSelector(".course-list >.list1")).getText();
+        System.out.println("Css Selector " + cssSelector);
+    }
+
+    @AfterMethod
+    public void cleanUp() {
+        driver.quit();
+    }
+    //$(".course-list li:nth-of-type(9)") => when i want to check a specific element in list element
+
+    //Using dynamic value instead of static or hard coded value
+    @Test
+    public void byClass() {
+        By banana = By.id("Banana");
+        WebElement bananaElement = driver.findElement(banana);
+        String webElement = bananaElement.getText();
+        System.out.println("WebElement " + webElement);
+
+    }
 }

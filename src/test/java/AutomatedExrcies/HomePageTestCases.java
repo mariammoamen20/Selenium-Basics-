@@ -11,7 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 public class HomePageTestCases {
@@ -28,8 +27,8 @@ public class HomePageTestCases {
 
     @Test
     public void verify_price() throws InterruptedException {
-        WebElement actualPrice = driver.findElement(By.xpath("//*[text()='Rs. 500']"));
-        Thread.sleep(5000);
+        By price = By.xpath("//*[text()='Rs. 500']");
+        WebElement actualPrice = driver.findElement(price);
         String expectedPrice = "Rs. 500";
         //System.out.println(actualPrice.getText());
         Assert.assertEquals(actualPrice.getText(), expectedPrice);
@@ -38,7 +37,6 @@ public class HomePageTestCases {
     @Test
     public void verify_product_name() throws InterruptedException {
         WebElement actualName = driver.findElement(By.xpath("//*[text()='Blue Top']"));
-        Thread.sleep(5000);
         String expectedName = "Blue Top";
         Assert.assertEquals(actualName.getText(), expectedName);
     }
@@ -46,9 +44,7 @@ public class HomePageTestCases {
     @Test
     public void add_item_to_cart() throws InterruptedException {
         driver.findElement(By.xpath("//*[@data-product-id='1']")).click();
-        Thread.sleep(5000);
         driver.findElement(By.xpath("//*[text()='Continue Shopping']")).click();
-        Thread.sleep(1000);
 
     }
 
