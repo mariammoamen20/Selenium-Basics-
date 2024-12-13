@@ -5,6 +5,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,8 +21,8 @@ public class Basics {
         driver = new ChromeDriver();
         //Open Html using selenium in chrome => locate the file in project and use "file://absolute path"
         driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
-       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 
     }
@@ -135,16 +136,83 @@ public class Basics {
         String elementById = driver.findElements(By.cssSelector(".course-list li")).get(1).getText();
         System.out.println("Element By ID " + elementById);
     }
+
     @Test
-    public void checkBox2(){
+    public void checkBox2() {
         WebElement id = driver.findElement(By.name("Banana"));
         id.click();
     }
+
     //Automate checkbox
     @Test
-    public void checkBox(){
+    public void checkBox() {
         driver.get("https://www.defacto.com/ar-eg/30-40-50-eg?filter=gender:woman");
         driver.findElement(By.cssSelector("[data-value=أولادي]")).click();
     }
 
+    //Automate dropdown list
+    @Test
+    public void dropdown() throws InterruptedException {
+        By id = By.id("courses");
+        WebElement courses = driver.findElement(id);
+        //Select class take an object from web element
+        Select select = new Select(courses);
+        //  select.selectByIndex(2);
+        //  select.selectByValue("selenium");
+        select.selectByVisibleText("Selenium");
+        Thread.sleep(3000);
+    }
+
+    @Test
+    public void isDisplayed() throws InterruptedException {
+        By id = By.id("courses");
+        //Is displayed return true if the element exist
+        //Is displayed return false if the code of this element in the code but not visible
+        boolean courses = driver.findElement(id).isDisplayed();
+        System.out.println(courses);
+    }
+
+    @Test
+    public void isEnabled() {
+        By id = By.id("courses");
+        //Is enabled return true if the element enable and can do action on it
+        //Is enabled return false when the element isn't enabled and can't do action on it like (unclickable button or disabled field)
+        boolean courses = driver.findElement(id).isEnabled();
+        System.out.println(courses);
+    }
+
+    @Test
+    public void isSelected() {
+        By id = By.id("Banana");
+        //Is selected return true if the element is selected
+        // return false when the element isn't selected
+        WebElement checkbox = driver.findElement(id);
+        checkbox.click();
+        boolean isSelected = driver.findElement(id).isSelected();
+        System.out.println(isSelected);
+    }
+    @Test
+    public void getAttribute() {
+        By id = By.id("Banana");
+        //This lines me get value of attribute named (id)
+        String attribute = driver.findElement(id).getAttribute("id");
+        System.out.println(attribute);
+    }
+    @Test
+    public void getTagName() {
+        By id = By.id("Banana");
+        //This lines me get tag name of this element
+        String tagName = driver.findElement(id).getTagName();
+        System.out.println(tagName);
+    }
+    @Test
+    public void getCssValue() {
+        By id = By.id("Banana");
+        //This lines me get value of attribute named (id)
+        String cssValue = driver.findElement(id).getCssValue("font-weight");
+        System.out.println(cssValue);
+    }
+
 }
+
+
