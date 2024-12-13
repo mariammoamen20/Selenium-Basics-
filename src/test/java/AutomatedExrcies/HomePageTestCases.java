@@ -20,7 +20,7 @@ public class HomePageTestCases {
     public void setUp() {
         driver = new ChromeDriver();
         driver.get("https://automationexercise.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20)); // Adjust implicit wait
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30)); // Adjust implicit wait
         driver.manage().deleteAllCookies();
         driver.navigate().refresh();
     }
@@ -36,15 +36,22 @@ public class HomePageTestCases {
 
     @Test
     public void verify_product_name() throws InterruptedException {
-        WebElement actualName = driver.findElement(By.xpath("//*[text()='Blue Top']"));
+        By name = By.xpath("//*[text()='Blue Top']");
+        WebElement actualName = driver.findElement(name);
+        String actualNameText = actualName.getText();
         String expectedName = "Blue Top";
-        Assert.assertEquals(actualName.getText(), expectedName);
+        Assert.assertEquals(actualNameText, expectedName);
     }
 
     @Test
     public void add_item_to_cart() throws InterruptedException {
-        driver.findElement(By.xpath("//*[@data-product-id='1']")).click();
-        driver.findElement(By.xpath("//*[text()='Continue Shopping']")).click();
+        By productId = By.xpath("//*[@data-product-id='1']");
+        WebElement click = driver.findElement(productId);
+        click.click();
+        //-------
+        By button = By.xpath("//*[text()='Continue Shopping']");
+        WebElement clickButton = driver.findElement(button);
+        clickButton.click();
 
     }
 
@@ -93,6 +100,7 @@ public class HomePageTestCases {
         }
 
     }
+
     //
     @Test
     public void scrollingLeft() {
@@ -109,10 +117,28 @@ public class HomePageTestCases {
     }
 
     @Test
-    public void check_empty_email(){
+    public void check_empty_email() {
         //
         driver.findElement(By.id("subscribe")).click();
     }
+
+    @Test
+    public void clickOnWomanSection() {
+        By woman = By.xpath("(//*[@data-toggle='collapse'])[1]");
+        WebElement clickOnWomanButton = driver.findElement(woman);
+        clickOnWomanButton.click();
+    }
+
+    @Test
+    public void automateAllCheckBox() throws InterruptedException {
+        for (int i = 0; i < 3; i++) {
+            WebElement click = driver.findElement(By.xpath("(//*[@data-toggle='collapse'])[" + (i + 1) + "]"));
+            click.click();
+            Thread.sleep(1000);
+        }
+    }
+
+
     @AfterMethod
     public void quite() {
         driver.quit();

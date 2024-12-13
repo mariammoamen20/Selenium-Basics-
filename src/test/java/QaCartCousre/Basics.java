@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.Objects;
 
 public class Basics {
@@ -19,12 +20,14 @@ public class Basics {
         driver = new ChromeDriver();
         //Open Html using selenium in chrome => locate the file in project and use "file://absolute path"
         driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
+       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().window().maximize();
+
 
     }
 
     @Test
     public void basics() {
-        driver.manage().window().maximize();
 
         //Get element by class name
         String className = driver.findElement(By.className("list1")).getText();
@@ -125,4 +128,23 @@ public class Basics {
         System.out.println("WebElement " + webElement);
 
     }
+
+    //Here I told it to get items in list with tag (li) beneath this class course-list
+    @Test
+    public void getElements() {
+        String elementById = driver.findElements(By.cssSelector(".course-list li")).get(1).getText();
+        System.out.println("Element By ID " + elementById);
+    }
+    @Test
+    public void checkBox2(){
+        WebElement id = driver.findElement(By.name("Banana"));
+        id.click();
+    }
+    //Automate checkbox
+    @Test
+    public void checkBox(){
+        driver.get("https://www.defacto.com/ar-eg/30-40-50-eg?filter=gender:woman");
+        driver.findElement(By.cssSelector("[data-value=أولادي]")).click();
+    }
+
 }
