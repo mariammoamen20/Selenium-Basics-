@@ -1,9 +1,6 @@
 package QaCartCousre;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
@@ -212,7 +209,26 @@ public class Basics {
         String cssValue = driver.findElement(id).getCssValue("font-weight");
         System.out.println(cssValue);
     }
-
+    @Test
+    public void getLocation() {
+        By id = By.id("Banana");
+        Point location = driver.findElement(id).getLocation();
+        System.out.println(location);
+        System.out.println(location.x);
+        System.out.println(location.y);
+    }
+    @Test
+    public void getSize() {
+        By id = By.id("Banana");
+        //get size of this check box
+        Dimension size = driver.findElement(id).getSize();
+        System.out.println(size);
+        System.out.println(size.width);
+        System.out.println(size.height);
+    }
 }
+
+
+
 
 
