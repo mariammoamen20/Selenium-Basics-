@@ -2,13 +2,15 @@ package QaCartCousre;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.Objects;
 
 public class Basics {
     WebDriver driver;
@@ -19,7 +21,7 @@ public class Basics {
         //Open Html using selenium in chrome => locate the file in project and use "file://absolute path"
         driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    //    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 
     }
@@ -188,6 +190,7 @@ public class Basics {
         boolean isSelected = driver.findElement(id).isSelected();
         System.out.println(isSelected);
     }
+
     @Test
     public void getAttribute() {
         By id = By.id("Banana");
@@ -195,6 +198,7 @@ public class Basics {
         String attribute = driver.findElement(id).getAttribute("id");
         System.out.println(attribute);
     }
+
     @Test
     public void getTagName() {
         By id = By.id("Banana");
@@ -202,6 +206,7 @@ public class Basics {
         String tagName = driver.findElement(id).getTagName();
         System.out.println(tagName);
     }
+
     @Test
     public void getCssValue() {
         By id = By.id("Banana");
@@ -209,6 +214,7 @@ public class Basics {
         String cssValue = driver.findElement(id).getCssValue("font-weight");
         System.out.println(cssValue);
     }
+
     @Test
     public void getLocation() {
         By id = By.id("Banana");
@@ -217,6 +223,7 @@ public class Basics {
         System.out.println(location.x);
         System.out.println(location.y);
     }
+
     @Test
     public void getSize() {
         By id = By.id("Banana");
@@ -225,6 +232,53 @@ public class Basics {
         System.out.println(size);
         System.out.println(size.width);
         System.out.println(size.height);
+    }
+
+    //Get Rect method
+    @Test
+    public void getRect() {
+        By id = By.id("Banana");
+        Rectangle rectangle = driver.findElement(id).getRect();
+        System.out.println(rectangle);
+        System.out.println(rectangle.width);
+        System.out.println(rectangle.height);
+        System.out.println(rectangle.x);
+        System.out.println(rectangle.y);
+    }
+
+    //Get AccessibleName in aria label or aria description in css
+    @Test
+    public void getAcc() {
+        By inputEmail = By.id("inputEmail");
+        String accessibleName = driver.findElement(inputEmail).getAccessibleName();
+        System.out.println(accessibleName);
+    }
+
+    //To perform double click we do this by using actions class
+    @Test
+    public void doubleClick() throws InterruptedException {
+        Actions action = new Actions(driver);
+        WebElement double_click = driver.findElement(By.id("right-click"));
+        action.doubleClick(double_click).perform();
+        Thread.sleep(2000);
+    }
+
+    //To perform right click we do this by using actions class
+    @Test
+    public void rightClick() throws InterruptedException {
+        Actions action = new Actions(driver);
+        WebElement double_click = driver.findElement(By.id("right-click"));
+        action.contextClick(double_click).perform();
+        Thread.sleep(2000);
+    }
+    //Mo
+    @Test
+    public void moveElement() throws InterruptedException {
+       // WebElement trigger = driver.findElement(By.cssSelector(".trigger"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement trigger = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".trigger")));
+        Actions action = new Actions(driver);
+        action.moveToElement(trigger).perform();
     }
 }
 
