@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Set;
 
 public class Basics {
     WebDriver driver;
@@ -19,10 +20,10 @@ public class Basics {
     public void setUp() {
         driver = new ChromeDriver();
         //Open Html using selenium in chrome => locate the file in project and use "file://absolute path"
-        driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
-        driver.manage().window().maximize();
-    //    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
+//        driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/index.html");
+//        driver.manage().window().maximize();
+//        //    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//
 
     }
 
@@ -271,16 +272,68 @@ public class Basics {
         action.contextClick(double_click).perform();
         Thread.sleep(2000);
     }
+
     //Mo
     @Test
     public void moveElement() throws InterruptedException {
-       // WebElement trigger = driver.findElement(By.cssSelector(".trigger"));
+        // WebElement trigger = driver.findElement(By.cssSelector(".trigger"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement trigger = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".trigger")));
         Actions action = new Actions(driver);
         action.moveToElement(trigger).perform();
     }
+
+    //How to preform drag and drop using (dragAndDrop) and (clickAndHold,moveToElement,release,build,perform)
+    @Test
+    public void dragAndDrop() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        for (int i = 1; i < 5; i++) {
+            String dynamicId = "draggable-" + i; // Construct the dynamic ID
+            WebElement source = driver.findElement(By.id(dynamicId)); // Use the dynamic ID
+            WebElement target = driver.findElement(By.cssSelector(".example-dropzone"));
+            actions.clickAndHold(source).moveToElement(target).release().build().perform();
+        }
+        //   actions.dragAndDrop(source,target);
+        Thread.sleep(5000);
+
+    }
+
+    @Test
+    public void getWindowId() throws InterruptedException {
+        driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/windows.html");
+        String parent = driver.getWindowHandle();
+        System.out.println(parent);
+        driver.findElement(By.cssSelector(".website")).click();
+        //Here i click on a button that open a new tab and then print array of window's id
+        System.out.println(driver.getWindowHandles());
+    }
+
+    @Test
+    public void getAllWindowId() throws InterruptedException {
+        driver.get("file:///home/mariam/Work/Learning/Testing/Automation_Rania_Mokhtar/Java/shopping_website/src/test/java/QaCartCousre/windows.html");
+        //Here i get the id of parent window
+        String parent = driver.getWindowHandle();
+        System.out.println(parent);
+        //I clicked on the button which move to a new window
+        driver.findElement(By.cssSelector(".website")).click();
+        //I stored all opened windows in allWindows array
+        Set<String> allWindow = driver.getWindowHandles();
+        //I made for loop to compare windows in allWindow with the parent
+        for (String window : allWindow) {
+            //ignore case means ignore cases sensitive ignore if letters are capital or small
+            if (!window.equalsIgnoreCase(parent)) {
+                System.out.println(driver.getTitle());
+                //After comparison, I switched the window to the second one
+                driver.switchTo().window(window);
+                System.out.println(driver.getTitle());
+                //I navigate bake to the parent window
+                driver.switchTo().window(parent);
+            }
+        }
+
+    }
 }
+
 
 
 
