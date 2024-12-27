@@ -21,7 +21,7 @@ public class Searchbar {
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://khlodmart.sahl.store/ar");
+        driver.get("");
         // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
     }
